@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"os"
 	"time"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -98,7 +99,7 @@ func (p *containerProxy) Catalog(w http.ResponseWriter, r *http.Request) {
 
 		catalog.Repositories = append(
 			catalog.Repositories,
-			fmt.Sprintf("%s/%s", *pack.Owner.Login, *pack.Name),
+			fmt.Sprintf("%s/%s", strings.ToLower(*pack.Owner.Login), *pack.Name),
 		)
 	}
 	json.NewEncoder(w).Encode(catalog)
